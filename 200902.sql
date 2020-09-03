@@ -343,5 +343,3 @@ FROM user_tables;
 
 
 
-
-
