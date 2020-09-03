@@ -248,6 +248,8 @@ WHERE mem_name LIKE '_이'
     OR mem_name LIKE '_______이';
 위에꺼는 무식한 방법이니 비추한다.
 
+Sourcetree로 github에 원격으로 올릴때 조심해야할점이 있는데
+취소나 패기 이런게 없어서 꼬여서 문제가 생길 수 있으니 함부로 건들지 말자
 
 
 
