@@ -261,6 +261,59 @@ SYSDATE : 오라클 서버의 현재 날짜, 시간을 돌려주는 특수함수
 SELECT SYSDATE
 FROM dual;
 
+날짜 타입 +- 정수 : 날짜에서 정수만큼 더한(뺀) 날짜
+하루 = 24
+1일 24h
+1/24일 = 1h
+1/24/60 = 1m
+1/24/60/60 = 1s
+emp hiredate +5, -5
+
+fn1j
+날짜를 어떻게 표현할까?
+java : java.util.Date
+sql : nsl 포맷에 설정된 문자열 형식을 따르거나
+        ==> 툴 때문일수도 있음 예측하기 힘듬.
+        TO_DATE 함수를 이용하여 명확하게 명시
+        TO_DATE('날씨 문자열', '날짜 문자열 형식')
+
+SELECT SYSDATE, SYSDATE + 5, SYSDATE -5
+FROM dual;
+위 문장처럼 입력하고 하면 날짜를 +5, -5 하겠다는 의미이다.
+
+SELECT SYSDATE, SYSDATE +5,
+        SYSDATE + 5 + 1/24 + 1/24/60 + 1/24/60/60, SYSDATE -5,
+        SYSDATE - 5 - 1/24 - 1/24/60 - 1/24/60/60
+FROM dual;
+
+
+SELECT TO_DATE('20191231', 'YYYY/MM/DD') lastday, 
+        TO_DATE('20191231', 'YYYY/MM/DD')-5 lastday_before5,
+        TO_DATE('20191231', 'YYYY/MM/DD')-5 "lastday before5", 
+        SYSDATE now, 
+        SYSDATE - 3 now_before3,
+        SYSDATE - 3 "now before3"
+FROM dual;
+
+밑에 문장처럼 입력하면 형식이 맞지않아 오류가 나니 절대로 하면 안된다.
+SELECT TO_DATE('20191231', 'YYYY/MM/DD') lastday,
+        lastday-5
+FROM dual;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
