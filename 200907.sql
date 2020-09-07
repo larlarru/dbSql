@@ -128,7 +128,11 @@ DUAL table
 - DUMMY 컬럼 하나만 존재하며 값은 'X'이며 데이터는 한 행만 존재
 
 - 사용용도
-    -
+    - 데이터와 관련 없이
+        - 함수 실행
+        - 시퀀스 실행
+    - merge 문에서
+    - 데이터 복제시(connect by level)
 
 SELECT *
 FROM dual;
