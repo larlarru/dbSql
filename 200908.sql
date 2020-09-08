@@ -101,7 +101,8 @@ SELECT TO_DATE(TO_CHAR(SYSDATE, 'YYYYMM') || '01', 'YYYYMMDD'),
         --밑에는 의도한 답과 달리 다르게 답을 낸거
         TO_DATE('01', 'DD'), --기본 설정에 의해서 날짜만 01로 바뀌었다.
         ADD_MONTHS( LAST_DAY(SYSDATE), -1) + 1,
-        SYSDATE - TO_CHAR(SYSDATE, 'DD') + 1
+        SYSDATE - TO_CHAR(SYSDATE, 'DD') + 1,
+        TO_DATE(TO_CHAR(SYSDATE, 'YYYYMM"01"'))
 FROM dual;
 
 SELECT MONTHS_BETWEEN( TO_DATE('20200915', 'YYYYMMDD'), TO_DATE('20200808', 'YYYYMMDD')),
