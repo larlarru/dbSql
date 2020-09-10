@@ -1,13 +1,21 @@
+많이 쓰이는 함수, 잘 알아두자 
+(개념 적으로 혼돈하지 말고 잘 정리하자 - SELECT 절에 올 수 있는 컬럼에 대해 잘 정리)
 
-많이 쓰이는 함수, 잘 알아두자
-(개념 적으로 혼돈하지 말고 잘 정ㄹ리하자 - SELECT 절에 올 수 있는 컬럼에 대해 잘 정리)
+그룹함수 : 여러개의 행을 입력으로 받아 하나의 행으로 결과를 반환하는 함수
 
-그룹함수 : 여러개의
+오라클 제공 그룹함수
+MIN(컬럼|익스프레션) : 그룹중에 최소값을 반환
+MAX(컬럼|익스프레션) : 그룹중에 최대값을 반환
+AVG(컬럼|익스프레션) : 그룹의 평균값을 반환
+SUM(컬럼|익스프레션) : 그룹의 합계값을 반환
+COUNT(컬럼  | 익스프레션 | * ) : 그룹핑된 행의 개수
 
-
-
-GROUP BY 컬럼
+SELECT 행을 묶을 컬럼, 그룹함수
+FROM 테이블명
+[WHERE]
+GROUP BY 행을 묶을 컬럼
 [HAVING 그룹함수 체크조건];
+
 
 SELECT *
 FROM emp
@@ -216,8 +224,105 @@ FROM emp;
 
 FUNCTION (group function 실습 group5-7 과제)
 
+FUNCTION (group function 실습 group5 과제)
+답 : 
+
+SELECT TO_CHAR(hiredate, 'yyyy') hire_yyyy, COUNT(*)
+FROM emp
+GROUP BY TO_CHAR(hiredate, 'yyyy');
 
 
+FUNCTION (group function 실습 group6 과제)
+답 : 
+SELECT COUNT(deptno) cnt
+FROM dept;
+
+SELECT 
+DECODE(deptno, 10, 'ACCOUNTING', 
+            20, 'RESEARCH',
+            30, 'SALES',
+            30, 'OPERATIONS')
+FROM emp
+GROUP BY DECODE(deptno, 10, 'ACCOUNTING', 
+            20, 'RESEARCH',
+            30, 'SALES',
+            30, 'OPERATIONS');
+SELECT COUNT(deptno) cnt
+FROM dept;
+
+SELECT *
+FROM dept;
+
+DECODE(deptno, 10, 'ACCOUNTING', 
+            20, 'RESEARCH',
+            30, 'SALES',
+            30 THEN 'OPERATIONS')
+
+
+
+SELECT DECODE(deptno, 10, 'ACCOUNTING', 
+            20, 'RESEARCH',
+            30, 'SALES') dnnme,
+        MAX(sal) max_sal,
+        MIN(sal) min_sal, 
+        ROUND(AVG(sal), 2) avg_sal,
+        SUM(sal) sum_sal,
+        COUNT(sal) count_sal,
+        COUNT(mgr) count_mgr,
+        COUNT(*) count_all
+FROM emp
+GROUP BY DECODE(deptno, 10, 'ACCOUNTING', 
+            20, 'RESEARCH',
+            30, 'SALES');
+
+FUNCTION (group function 실습 group7 과제)
+
+답 : 
+SELECT COUNT(*) cnt
+FROM(
+SELECT DECODE(deptno, 10, 'ACCOUNTING', 
+            20, 'RESEARCH',
+            30, 'SALES') deptno
+FROM emp
+GROUP BY DECODE(deptno, 10, 'ACCOUNTING', 
+            20, 'RESEARCH',
+            30, 'SALES'));
+
+--되긴 되는데 오류가 남..
+--SELECT COUNT(*) cnt
+--FROM (SELECT DECODE(deptno, 10, 'ACCOUNTING', 
+  --          20, 'RESEARCH',
+    --        30, 'SALES',
+      --      30, 'OPERATIONS') cnt
+        --FROM emp
+        --GROUP BY DECODE(deptno, 10, 'ACCOUNTING', 
+          --  20, 'RESEARCH',
+           -- 30, 'SALES',
+            --30, 'OPERATIONS'));
+--GROUP BY (SELECT DECODE(deptno, 10, 'ACCOUNTING', 
+  --          20, 'RESEARCH',
+   --         30, 'SALES',
+    --        30, 'OPERATIONS')
+     --   FROM emp
+      --  GROUP BY DECODE(deptno, 10, 'ACCOUNTING', 
+       --     20, 'RESEARCH',
+        --    30, 'SALES',
+         --   30, 'OPERATIONS'));
+
+
+
+SELECT deptno
+FROM
+(SELECT DECODE(deptno, 10, 'ACCOUNTING', 
+            20, 'RESEARCH',
+            30, 'SALES',
+            30, 'OPERATIONS')
+    FROM emp
+    GROUP BY deptno);
+
+DECODE(deptno, 10, 'ACCOUNTING', 
+            20, 'RESEARCH',
+            30, 'SALES') dnnme
 
 
 SELECT *
@@ -361,7 +466,17 @@ empno, ename, sal, 등급(grade)
 
 SELECT empno, ename, sal, grade
 FROM emp e, salgrade s
-WHERE e.sal = s.hisal;
+WHERE e.sal >= s.losal 
+    AND e.sal <= s.hisal;
+
+SELECT empno, ename, sal, grade
+FROM emp , salgrade
+WHERE sal BETWEEN losal AND hisal;
+
+ORCALE문법으로 된 위의 문장 ANSI-SQL문법으로 바꾸기
+
+SELECT empno, ename, sal, grade
+FROM emp JOIN salgrade ON ( sal >= losal AND sal <= hisal);
 
 
 
@@ -373,6 +488,95 @@ FROM salgrade;
 
 sal hisal
 
+sa; >= losal AND
+sal <= hisal
+
+데이터 결합 (실습 join0-4까지 과제)
+
+데이터 결합 (실습 join0 과제)
+답 : 
+SELECT e.empno, e.ename, e.deptno, d.dname
+FROM emp e JOIN dept d ON ( e.deptno = d.deptno)
+ORDER BY e.deptno;
+
+SELECT e.empno, e.ename, e.deptno, d.deptno, d.dname
+FROM emp e, dept d
+WHERE e.deptno = d.deptno
+ORDER BY deptno ASC;
+
+SELECT e.empno, e.ename, e.deptno, d.dname
+FROM emp e JOIN dept d ON ( e.deptno = d.deptno);
+
+
+SELECT e.empno, e.ename, e.mgr, m.ename
+FROM emp e, emp m
+WHERE e.mgr = m.empno;
+
+SELECT empno, ename, deptno, dname
+FROM emp JOIN salgrade ON ( sal >= losal AND sal <= hisal);
+
+SELECT *
+FROM emp;
+
+SELECT *
+FROM dept;
+
+데이터 결합 (실습 join1 과제)
+답 : 
+
+SELECT e.empno, e.ename, e.deptno, d.dname
+FROM emp e JOIN dept d ON ( e.deptno = d.deptno)
+WHERE e.deptno in ('10','30');
+
+
+
+
+SELECT e.empno, e.ename, e.deptno, d.dname
+FROM emp e JOIN dept d ON ( e.deptno = d.deptno)
+WHERE e.deptno BETWEEN 10 AND 30;
+
+SELECT e.empno, e.ename, e.deptno, d.dname
+FROM emp e JOIN dept d ON ( e.sal >= losal AND sal <= hisal);
+
+참고 밑에는
+SELECT ename, sal, deptno from emp
+where sal BETWEEN 2000 AND 500 or deptno in ('10', '30')
+
+데이터 결합 (실습 join2 과제)
+
+답 :
+
+SELECT e.empno, e.ename, e.sal, e.deptno, d.dname
+FROM emp e JOIN dept d ON ( e.deptno = d.deptno)
+WHERE e.sal > 2500
+ORDER BY e.deptno; 
+
+
+
+SELECT *
+FROM emp;
+
+SELECT *
+FROM dept;
+
+데이터 결합 (실습 join3 과제)
+
+답 :
+
+SELECT e.empno, e.ename, e.sal, e.deptno, d.dname
+FROM emp e JOIN dept d ON ( e.deptno = d.deptno)
+WHERE e.sal > 2500 AND e.empno > 7600
+ORDER BY e.deptno; 
+
+
+데이터 결합 (실습 join4 과제)
+
+답 :
+
+SELECT e.empno, e.ename, e.sal, e.deptno, d.dname
+FROM emp e JOIN dept d ON ( e.deptno = d.deptno)
+WHERE e.sal > 2500 AND e.empno > 7600 AND d.dname in ('RESEARCH')
+ORDER BY e.deptno; 
 
 
 
