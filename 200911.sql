@@ -152,7 +152,8 @@ prod_id, cart_prod
 
 cart_member, mem_id
 
-
+SELECT *
+FROM emp;
 
 
 
