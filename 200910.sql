@@ -425,7 +425,7 @@ ANSI-SQL : JOIN WITH ON - 조인 조건을 개발자가 직접 기술
             NATURAL JOIN, JOIN WITH USING 절을 JOIN WITH ON 절을 통해 표현 가능
 
 SELECT *
-FROM emp JOIN dept ON( emp.deptno = dept.deptno); --오라클이 아니라 내가 직접 조건을 기술
+FROM emp JOIN dept ON( emp.deptno = dept.deptno) --오라클이 아니라 내가 직접 조건을 기술
 WHERE emp.deptno IN ( 20, 30);
 ORACLE
 

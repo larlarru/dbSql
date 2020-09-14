@@ -242,7 +242,192 @@ SELECT *
 FROM buyprod
 WHERE BUY_DATE = TO_DATE('2005/01/25', 'YYYY/MM/DD');
 
+데이터 결합(실습 join5)
+답 : 
 
+SELECT customer.cid, customer.cnm, cycle.pid, 
+        product.pnm, cycle.day, cycle.cnt
+FROM customer, cycle, product
+WHERE customer.cid = cycle.cid
+    AND cycle.pid = product.pid
+    AND customer.cnm IN ('brown', 'sally');
+
+SELECT
+COUNT(case when tmp1 = '111' then 1 end),
+count(case when tmp1 = '222' then 1 end)
+
+EXPLAIN PLAN FOR
+SELECT customer.cid, customer.cnm, cycle.pid, 
+        product.pnm, cycle.day, cycle.cnt
+FROM customer, cycle, product
+WHERE customer.cid = cycle.cid
+    AND cycle.pid = product.pid
+    AND customer.cnm IN ('brown', 'sally');
+
+SELECT *
+FROM TABLE(dbms_xplan.display);
+
+
+SELECT a.cid, a.cnm, product.pnm, a.day, a.cnt
+FROM
+(SELECT customer.*, cycle.pid, cycle.day, cycle.cnt
+FROM customer, cycle
+WHERE customer.cid = cycle.cid
+   -- AND customer.cnm IN ('brown', 'sally))) a, product
+--WHERE a.pid = product.pid;
+
+데이터 결합(실습 join6~7, 8~13) 과제 ppt226~
+
+데이터 결합(실습 join6)
+답 : 
+
+SELECT customer.cid, customer.cnm, product.pid,
+        product.pnm, sum(cycle.cnt)
+FROM customer, cycle, product
+WHERE customer.cid = cycle.cid
+    AND cycle.pid = product.pid
+GROUP BY customer.cid, customer.cnm, product.pid, product.pnm
+ORDER BY product.pnm;
+
+
+SELECT customer.cid, customer.cnm, product.pid,
+        product.pnm, cycle.cnt
+FROM customer, cycle, product
+WHERE customer.cid = cycle.cid
+    AND cycle.pid = product.pid
+ORDER BY product.pnm;
+
+COUNT(case when tmp1 = '111' then 1 end)
+
+--밑에 문장 group by 쓸때 컬럼명 갯수하고 맞춰줘야한다.
+SELECT customer.cid, customer.cnm, product.pid,
+        product.pnm, sum(cycle.cnt)
+FROM customer, cycle, product
+WHERE customer.cid = cycle.cid
+    AND cycle.pid = product.pid
+GROUP BY customer.cid, customer.cnm, product.pid, product.pnm
+ORDER BY product.pnm;
+
+
+
+
+
+SELECT COUNT(COUNT(deptno)) cnt
+FROM emp
+GROUP BY deptno;
+
+SELECT count(count(product)) cnt
+FROM product
+GROUP BY cycle;
+
+
+SELECT *
+FROM emp;
+
+SELECT customer.cid, customer.cnm, cycle.pid, 
+        product.pnm, cycle.day, cycle.cnt
+FROM customer, cycle, product
+WHERE customer.cid = cycle.cid
+    AND cycle.pid = product.pid
+    AND customer.cnm IN ('brown', 'sally');
+
+cid, cnm, pid, pnm, cnt
+
+
+SELECT *
+FROM customer;
+
+SELECT *
+FROM cycle;
+
+
+SELECT *
+FROM product;
+
+
+데이터 결합(실습 join7)
+답 : 
+
+SELECT product.pid, product.pnm, sum(cycle.cnt)cnt
+FROM cycle, product
+WHERE cycle.pid = product.pid
+GROUP BY product.pid, product.pnm
+ORDER BY product.pnm ;
+
+SELECT customer.cid, customer.cnm, product.pid,
+        product.pnm, sum(cycle.cnt)
+FROM customer, cycle, product
+WHERE customer.cid = cycle.cid
+    AND cycle.pid = product.pid
+GROUP BY customer.cid, customer.cnm, product.pid, product.pnm
+ORDER BY product.pnm;
+
+
+SELECT product.pid, product.pnm, sum(cycle.cnt)cnt
+FROM cycle, product
+WHERE cycle.pid = product.pid
+GROUP BY product.pid, product.pnm
+ORDER BY product.pnm ;
+
+SELECT userid, usernm, reg_dt,
+        case
+            WHEN MOD(TO_CHAR(reg_dt, 'yyyy'), 2) = 
+                MOD(TO_CHAR(SYSDATE, 'yyyy'), 2)
+                    THEN '건강검진대상자'
+            ELSE '건강검진비대상자'
+        END contact_to_doctor
+FROM users;
+
+SELECT product.pid, case WHEN '윌' THEN '쿠퍼스'
+    case WHEN '쿠퍼스' THEN '윌'
+        ELSE ''
+        END product.pnm, sum(cycle.cnt)cnt
+FROM cycle, product
+WHERE cycle.pid = product.pid
+GROUP BY product.pid, product.pnm
+ORDER BY product.pnm ;
+
+case WHEN '윌' THEN '쿠퍼스'
+    case WHEN '쿠퍼스' THEN '윌'
+            ELSE ''
+        END product.pnm
+
+
+
+
+
+
+SELECT product.pid, product.pnm, --sum(cycle.cnt)
+FROM customer, cycle, product
+WHERE cycle.pid = product.pid
+--GROUP BY product.pid, product.pnm
+ORDER BY product.pnm;
+
+SELECT *
+FROM cycle;
+
+SELECT *
+FROM product;
+
+데이터 결합(실습 join8)
+답 : 
+
+
+SELECT r.region_id, r.region_name, c.country_name
+FROM regions r, countries c
+WHERE r.region_id = c.region_id
+ AND r.region_name LIKE 'Europe';
+
+SELECT *
+FROM countries;
+
+
+SELECT *
+FROM countries;
+
+
+SELECT *
+FROM em;
 
 
 
