@@ -397,6 +397,8 @@ case WHEN '윌' THEN '쿠퍼스'
 
 
 
+
+
 SELECT product.pid, product.pnm, --sum(cycle.cnt)
 FROM customer, cycle, product
 WHERE cycle.pid = product.pid
