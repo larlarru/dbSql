@@ -170,6 +170,79 @@ WHERE cycle.pid(+) = product.pid
 
 데이터 결합 (outer join 실습 outerjoin5)
 답 :
+
+SELECT p.pid, p.pnm,
+        NVL(cc.cid, 1), NVL(cs.cnm, 'brown'),
+        NVL(cc.day, 0), NVL(cc.cnt, 0)
+FROM cycle cc, customer cs, product p
+WHERE cc.cid = cs.cid(+)
+    AND cc.pid(+) = p.pid
+    AND cc.cid(+) = 1
+ORDER BY p.pid DESC;
+
+
+SELECT product.pid, NVL(product.pnm, 0),
+        customer.cid, customer.cnm,
+        NVL(cycle.day, 0) day, NVL(cycle.cnt, 0) cnt
+FROM customer, cycle, product
+WHERE cycle.cid(+) = customer.cid
+    AND cycle.pid = product.pid
+    AND cycle.cid(+) = 1
+ORDER BY cycle.pid DESC;
+
+SELECT product.pid, product.pnm,
+        customer.cid, customer.cnm,
+        cycle.day, cycle.cnt
+FROM customer, cycle, product
+WHERE cycle.cid = customer.cid
+    AND cycle.pid = product.pid
+    AND cycle.cid = 1
+ORDER BY cycle.pid DESC;
+
+SELECT *
+FROM customer;
+
+SELECT *
+FROM cycle;
+
+SELECT *
+FROM product
+
+SELECT *
+FROM product, customer, cycle;
+
+
+SELECT p.pid, p.pnm,
+        NVL(cc.cid, 1), NVL(cs.cnm, 'brown'),
+        NVL(cc.day, 0), NVL(cc.cnt, 0)
+FROM cycle cc, customer cs, product p
+WHERE cc.cid = cs.cid(+)
+    AND cc.pid(+) = p.pid
+    AND cc.cid(+) = 1
+ORDER BY p.pid DESC;
+
+
+SELECT product.pid, product.pnm,
+        cycle.cid, customer.cnm,
+        NVL(cycle.day, 0), NVL(cycle.cnt,0)
+FROM cycle JOIN customer ON (cycle.cid = customer.cid)
+            JOIN product ON(cycle.pid = product.pid)
+WHERE cycle.cid = 1
+ORDER BY product.pid DESC;
+
+
+--참고
+SELECT e.empno, e.ename, e.deptno, d.dname
+FROM emp e JOIN dept d ON ( e.deptno = d.deptno)
+WHERE e.deptno = 10 OR e.deptno = 30
+ORDER BY e.deptno;
+--참고
+SELECT cycle.pid, product.pnm, :cid cid, 
+        NVL(cycle.day, 0) day, NVL(cycle.cnt, 0) cid
+FROM cycle, product
+WHERE cycle.pid(+) = product.pid
+    AND cycle.cid(+) = 1;
+
 SELECT cycle.pid, product.pnm, :cid cid, 
         NVL(cycle.day, 0) day, NVL(cycle.cnt, 0) cid
 FROM cycle, product
@@ -485,6 +558,48 @@ SELECT dname
 FROM dept
 WHERE deptno = 20;
 
+데이터 결합 (실습 jon 13)
+답 :
+
+SELECT e.manager_id, 'StevenKing' AS mgr_name,
+        e.employee_id, e.first_name || e.last_name name,
+        j.job_id, j.job_title
+FROM employees e, jobs j
+WHERE e.job_id = j.job_id
+    AND e.employee_id >= 120
+    AND e.manager_id = 100
+    AND e.employee_id BETWEEN 120 AND 150
+ORDER BY e.employee_id ASC;
+
+SELECT *
+FROM employees;
+
+SELECT *
+FROM jobs;
+
+
+--밑에 2문제는 참고 :
+
+데이터 결합(실습 join11)
+답 : 
+
+SELECT r.region_id, r.region_name, c.country_name,
+        l.city, d.department_name, e.first_name || e.last_name
+FROM regions r, countries c, locations l, departments d,
+        employees e
+WHERE r.region_id = c.region_id
+    AND c.country_id = l.country_id
+    AND l.location_id = d.location_id
+    AND e.department_id = d.department_id
+    AND r.region_name LIKE 'Europe';
+
+데이터 결합(실습 join12)
+답 : 
+
+SELECT e.employee_id, e.first_name || e.last_name,
+        e.job_id, j.job_title
+FROM employees e, jobs j
+WHERE e.job_id = j.job_id;
 
 
 
