@@ -172,13 +172,13 @@ WHERE cycle.pid(+) = product.pid
 답 :
 
 SELECT p.pid, p.pnm,
-        NVL(cc.cid, 1), NVL(cs.cnm, 'brown'),
-        NVL(cc.day, 0), NVL(cc.cnt, 0)
+        NVL(cc.cid, 1) cid, NVL(cs.cnm, 'brown') cnm,
+        NVL(cc.day, 0) day, NVL(cc.cnt, 0) cnt
 FROM cycle cc, customer cs, product p
 WHERE cc.cid = cs.cid(+)
     AND cc.pid(+) = p.pid
     AND cc.cid(+) = 1
-ORDER BY p.pid DESC;
+ORDER BY p.pid DESC, day DESC;
 
 
 SELECT product.pid, NVL(product.pnm, 0),
