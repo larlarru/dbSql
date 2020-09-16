@@ -403,7 +403,7 @@ FROM emp
 WHERE empno IN (7369, 7782);
 
 
-UNION ALL
+UNION ALL 연산자는 중복제거 단계가 없다
 SELECT empno, ename
 FROM emp
 WHERE empno IN (7369, 7566)
