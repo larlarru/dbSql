@@ -225,12 +225,12 @@ AND pid = 100;
 서브쿼리 (실습 sub7)
 답 : p284
 
-SELECT cs.cnm, cc.pid, p.pnm, cc.day, cc.cnt
-FROM product p, customer cs, cycle cc
-WHERE cc.cid = cs.cid
-AND cc.pid = p.pid
-AND cc.cid = 1
-AND cc.pid IN (SELECT pid
+SELECT c.cid, cu.cnm, c.pid, p.pnm, c.day, c.cnt
+FROM product p, customer cu, cycle c
+WHERE c.cid = cu.cid
+AND c.pid = p.pid
+AND c.cid = 1
+AND c.pid IN (SELECT pid
                 FROM cycle
                 WHERE cid IN (2));
 
