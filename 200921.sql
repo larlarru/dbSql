@@ -175,6 +175,9 @@ SELECT *
 FROM user_constraints
 WHERE table_name IN ('EMP', 'DEPT');
 
+SELECT *
+FROM user_constraints
+WHERE table_name IN ('EMP');
 
 ALTER TABLE emp DISABLE CONSTRAINT FK_emp_dept;
 
@@ -184,7 +187,7 @@ ALTER TABLE dept ADD CONSTRAINT pk_dept PRIMARY KEY (deptno);
 ALTER TABLE emp ADD CONSTRAINT pk_emp PRIMARY KEY (empno);
 ALTER TABLE emp ADD CONSTRAINT fk_emp_dept 
     FOREIGN KEY (deptno) REFERENCES dept (deptno);
-ALTER TABLE emp ADD CONSTRAINT fk_emp
+ALTER TABLE emp ADD CONSTRAINT fk_emp_emp
     FOREIGN KEY (mgr) REFERENCES emp (empno);
 
 
