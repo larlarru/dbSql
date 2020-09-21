@@ -157,7 +157,7 @@ SELECT empno, ename,
                 20, 'RESEARCH',
                 30, 'SALES',
                 40, 'OPERATIONS',
-                'DDIT') dname,
+                'DDIT')dname,
         CASE
             WHEN deptno = 10 THEN 'ACCOUNTING'
             WHEN deptno = 20 THEN 'RESEARCH'
