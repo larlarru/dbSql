@@ -29,6 +29,9 @@ WHERE emp.deptno = dept.deptno;
 SELECT *
 FROM v_emp
 
+SELECT *
+FROM dept;
+
 view 삭제
 DROP VIEW 뷰이름;
 DROP VIEW v_emp_dept;
@@ -85,8 +88,8 @@ FROM emp;
 
 CREATE SEQUENCE SEQ_EMP;
 
-TABLE 객ㅊ에는 데이터를 저장/조회시 순서를 보장하지 않음
-- 보편적으로 데이터가 입겱된 순서대로 조회됨
+TABLE 객체에는 데이터를 저장/조회시 순서를 보장하지 않음
+- 보편적으로 데이터가 입력된 순서대로 조회됨
 - 데이터가 항상 동일한 순서로 조회되는 것을 보장하지 않는다.
 - ...
 
@@ -141,10 +144,10 @@ SELECT *
 FROM emp
 WHERE empno = 7782;
 ==> 테이블에는 순서가 없기 때문에 emp 테이블의 14건의 데이터를 모두 뒤져보고
-emono값이 7782인 한건에 대햇거만 사용자에게 반환을 한다.
+emono값이 7782인 한건에 대해서만 사용자에게 반환을 한다.
 
 시나리오1
-emp 테이블의 empno 컬럼에 PK_EMP 유니크 인덱스가 생서된 경우
+emp 테이블의 empno 컬럼에 PK_EMP 유니크 인덱스가 생성된 경우
 (우리는 인덱스를 직접 생성하지 않았고 PRIMARY KEY 제약조건에 의해 자동으로 생성 됨)
 
 
@@ -416,7 +419,7 @@ Predicate Information (identified by operation id):
 
 fore?키에 대한 무결성을 빨리 찾기 위해서는 인덱스가 필요하다.
 
-
+쿼리 : 데이터베이스에 정보를 요청
 
 
 
