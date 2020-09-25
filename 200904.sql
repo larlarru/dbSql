@@ -432,7 +432,7 @@ FROM (SELECT ROWNUM rn, a.*
     (SELECT empno, ename
         FROM emp
         ORDER BY ename) a)
-WHERE rn BETWEEN (:page - 1) * :pageSize + 1 AND :page * "pageSize;
+WHERE rn BETWEEN (:page - 1) * :pageSize + 1 AND :page * :pageSize;
 
 SELECT 절에 * 사용했는데 ,를 통해 다른 특수 컬럼이나 EXPRESSION을 사용 할 경우는
         *앞에 해당 데이터가 어떤 테이블에서 왔는지 명시를 해줘야 한다(한정자).
