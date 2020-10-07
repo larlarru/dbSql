@@ -328,7 +328,6 @@ FROM dept;
 
 PL/SQL (procedure 생성 실습 pro_3) 과제
 
-
 CREATE OR REPLACE PROCEDURE UPDATEdept_test (p_deptno IN dept.deptno%TYPE,
                     p_dname IN dept.dname%TYPE,
                     p_loc IN dept.loc%TYPE) IS
