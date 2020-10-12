@@ -1,3 +1,4 @@
+DESC tb_jdbc_board;
 
 SELECT *
 FROM tb_jdbc_board;
