@@ -125,6 +125,42 @@ UPDATE JDBC_BOARD SET
     WHERE BOARD_NO = 5;
 COMMIT;
 
+DESC MYMEMBER;
+
+SELECT *
+FROM MYMEMBER;
+
+UPdate MYMEMBER SET mem_name ='a' WHERE mem_id = 'test';
+
+INSERT INTO MYMEMBER(MEM_ID, MEM_NAME, MEM_TEL, MEM_ADDR) 
+VALUES('test', 'test', '1234', '지구어딘가에');
+
+COMMIT;
+
+--VO객체의 맴버변수 자동으로 만들기(DB연동용)
+SELECT 'private ' ||
+    -- 자료형이름은 NUMBER일 때만 int, 나머지는 String으로 한다.
+    Decode(Lower(Data_type), 'number', 'int ', 'String ') ||
+    Lower(Column_name) || ';'
+FROM cols
+WHERE Lower(Table_name) = 'jdbc_board';
+
+DESC jdbc_board;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
