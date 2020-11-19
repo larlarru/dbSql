@@ -130,6 +130,8 @@ DESC MYMEMBER;
 SELECT *
 FROM MYMEMBER;
 
+DELETE MYMEMBER;
+
 UPdate MYMEMBER SET mem_name ='a' WHERE mem_id = 'test';
 
 INSERT INTO MYMEMBER(MEM_ID, MEM_NAME, MEM_TEL, MEM_ADDR) 
@@ -147,19 +149,41 @@ WHERE Lower(Table_name) = 'jdbc_board';
 
 DESC jdbc_board;
 
+DESC JDBC_BOARD;
+
+SELECT *
+FROM JDBC_BOARD;
+
+COMMIT;
+
+SELECT 'private ' ||
+    -- 자료형이름은 NUMBER일 때만 int, 나머지는 String으로 한다.
+    Decode(Lower(Data_type), 'number', 'int ', 'String ') ||
+    Lower(Column_name) || ';'
+FROM cols
+WHERE Lower(Table_name) = 'lprod';
 
 
+SELECT *
+FROM LPROD;
 
+DESC LPROD;
 
+INSERT INTO LPROD VALUES((SELECT NVL(MAX(lprod_id),0)+1 FROM LPROD),
+                            'P999', 'test');
 
+COMMIT;
 
+DELETE LPROD WHERE lprod_id = 88;
 
+SELECT * FROM JDBC_BOARD ORDER BY board_no DESC;
 
+UPDATE JDBC_BOARD SET board_cnt = board_cnt + 1
+ 						WHERE board_no = 1;
+DESC JDBC_BOARD;
 
-
-
-
-
+SELECT * 
+FROM JDBC_BOARD;
 
 
 
