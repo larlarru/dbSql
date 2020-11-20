@@ -185,6 +185,82 @@ DESC JDBC_BOARD;
 SELECT * 
 FROM JDBC_BOARD;
 
+SELECT board_no, board_title, board_writer,
+ 				to_char(board_date, 'YYYY-MM-DD') board_date,
+ 				board_cnt, board_content
+ 				FROM JDBC_BOARD
+ 				WHERE board_title like '%번째%'
+ 				ORDER BY board_no DESC;
+
+SELECT board_no, board_title, board_writer,
+ 				to_char(board_date, 'YYYY-MM-DD') board_date,
+ 				board_cnt, board_content
+ 				FROM JDBC_BOARD
+ 				WHERE board_no = 1;
+
+
+create table hotelroom(
+    room_no number not null,  -- 번호(자동증가)
+    room_type varchar2(50) not null, -- 제목
+    room_user varchar2(50) null, -- 작성자
+    room_date date null,   	-- 작성날짜
+    constraint pk_hotelroom primary key (room_no)
+);
+
+COMMIT;
+DELETE hotelroom;
+SELECT *
+FROM hotelroom
+ORDER BY room_no;
+DESC hotelroom;
+
+INSERT INTO HOTELROOM(room_no, room_type, room_user, room_date)
+            VALUES(201, '싱글룸', '-', null);
+            
+INSERT INTO HOTELROOM(room_no, room_type, room_user, room_date)
+            VALUES(301, '더블룸', '-', null);
+    
+INSERT INTO HOTELROOM(room_no, room_type, room_user, room_date)
+            VALUES(401, '스위트룸', '-', null);
+
+INSERT INTO HOTELROOM(room_no, room_type, room_user, room_date)
+            VALUES((SELECT NVL(MAX(room_no),0)+1 FROM HOTELROOM), 
+                    '싱글룸', '-', null);
+
+INSERT INTO HOTELROOM(room_no, room_type, room_user, room_date)
+            VALUES((SELECT NVL(MAX(room_no),0)+1 FROM HOTELROOM), 
+                    '더블룸', '-', null);
+                    
+INSERT INTO HOTELROOM(room_no, room_type, room_user, room_date)
+            VALUES((SELECT NVL(MAX(room_no),0)+1 FROM HOTELROOM), 
+                    '스위트룸', '-', null);
+
+
+COMMIT;
+
+SELECT *
+FROM hotelroom;
+ORDER BY room_no;
+DESC hotelroom;
+
+UPDATE HOTELROOM SET room_user = 'a', room_date = sysdate WHERE room_no = 201;
+
+SELECT *
+FROM hotelroom;
+WHERE room_user = 'a';
+SELECT COUNT(*) FROM HOTELROOM WHERE room_user = 'a';
+
+SELECT 'private ' ||
+    -- 자료형이름은 NUMBER일 때만 int, 나머지는 String으로 한다.
+    Decode(Lower(Data_type), 'number', 'int ', 'String ') ||
+    Lower(Column_name) || ';'
+FROM cols
+WHERE Lower(Table_name) = 'hotelroom';
+
+UPDATE HOTELROOM SET room_user = '-', 
+ 							room_date = null 
+ 				WHERE room_no = 201;
+
 
 
 
