@@ -262,9 +262,17 @@ UPDATE HOTELROOM SET room_user = '-',
  				WHERE room_no = 201;
 
 
+SELECT 'private ' ||
+    -- 자료형이름은 NUMBER일 때만 int, 나머지는 String으로 한다.
+    Decode(Lower(Data_type), 'number', 'int ', 'String ') ||
+    Lower(Column_name) || ';'
+FROM cols
+WHERE Lower(Table_name) = 'member';
 
+SELECT *
+FROM MEMBER;
 
-
+COMMIT;
 
 
 
