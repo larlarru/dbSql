@@ -274,7 +274,87 @@ FROM MEMBER;
 
 COMMIT;
 
+SELECT buyer_id, buyer_name from buyer;
+SELECT buyer_id, buyer_name FROM BUYER;
+select * from buyer where buyer_id = 'P10202';
+
+SELECT 'private ' ||
+    -- 자료형이름은 NUMBER일 때만 int, 나머지는 String으로 한다.
+    Decode(Lower(Data_type), 'number', 'int ', 'String ') ||
+    Lower(Column_name) || ';'
+FROM cols
+WHERE Lower(Table_name) = 'buyer';
+
+SELECT *
+FROM LPROD;
+
+SELECT *
+FROM LPROD;
+SELECT *
+FROM PROD;
+
+SELECT 'private ' ||
+    -- 자료형이름은 NUMBER일 때만 int, 나머지는 String으로 한다.
+    Decode(Lower(Data_type), 'number', 'int ', 'String ') ||
+    Lower(Column_name) || ';'
+FROM cols
+WHERE Lower(Table_name) = 'lprod';
 
 
+SELECT 'private ' ||
+    -- 자료형이름은 NUMBER일 때만 int, 나머지는 String으로 한다.
+    Decode(Lower(Data_type), 'number', 'int ', 'String ') ||
+    Lower(Column_name) || ';'
+FROM cols
+WHERE Lower(Table_name) = 'prod';
 
+SELECT prod_id, prod_name
+    , prod_lgu, prod_buyer
+    , prod_cost, prod_price, prod_sale, prod_outline, prod_detail
+FROM prod
+WHERE prod_lgu = 'P101' AND prod_buyer = 'P10101';
+
+SELECT *
+FROM lprod;
+/*gu*/
+
+SELECT *
+FROM prod;
+
+SELECT *
+FROM lprod lp, prod pr
+WHERE lp.lprod_gu = pr.prod_lgu;
+
+
+SELECT lprod_nm
+FROM LPROD
+WHERE lprod_nm = '컴퓨터제품';
+
+SELECT prod_name
+FROM prod;
+
+SELECT 
+    pr.prod_id, pr.prod_name
+    , pr.prod_lgu, pr.prod_buyer
+    , pr.prod_cost, pr.prod_price
+    , pr.prod_sale, pr.prod_outline, pr.prod_detail
+FROM lprod lp, prod pr
+WHERE lp.lprod_gu = pr.prod_lgu
+AND lp.lprod_nm like '%컴%'
+AND pr.prod_name like '%모니터%';
+
+SELECT 
+    pr.prod_id, pr.prod_name
+    , pr.prod_lgu, pr.prod_buyer
+    , pr.prod_cost, pr.prod_price
+    , pr.prod_sale, pr.prod_outline, pr.prod_detail
+FROM lprod lp, prod pr
+WHERE lp.lprod_gu = pr.prod_lgu
+AND lp.lprod_nm = '여성캐주얼'
+AND pr.prod_name = '삼보컴퓨터 P-III 700Mhz';
+
+SELECT *
+FROM LPROD;
+DESC LPROD;
+COMMIT;
 
