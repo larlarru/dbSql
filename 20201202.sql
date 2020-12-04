@@ -127,6 +127,22 @@ select A.* from (
       where rownum <= 5) A 
    where A.rnum >=1;
 
+DESC reply;
+SELECT *
+FROM REPLY;
+WHERE bonum = 18;
+
+COMMIT;
+
+
+
+
+
+
+
+
+
+
 
 
 
