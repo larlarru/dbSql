@@ -134,8 +134,15 @@ WHERE bonum = 18;
 
 COMMIT;
 
+SELECT *
+FROM MYMEMBER;
+WHERE mem_id = 'E4nwPbRXm526jD2U4Db87w==';
+DESC MYMEMBER;
+INSERT INTO MYMEMBER VALUES('a', '지나가던시민a', '1234', '대한민국 어딘가에');
 
-
+SELECT *
+FROM REPLY;
+WHERE bonum = '19';
 
 
 
