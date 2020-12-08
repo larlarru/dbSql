@@ -144,6 +144,9 @@ SELECT *
 FROM REPLY;
 WHERE bonum = '19';
 
+DESC board1;
+SELECT *
+FROM board1;
 
 
 
