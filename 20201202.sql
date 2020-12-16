@@ -147,6 +147,7 @@ WHERE bonum = '19';
 DESC board1;
 SELECT *
 FROM board1;
+DESC board1;
 
 
 

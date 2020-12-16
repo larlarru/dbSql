@@ -151,7 +151,7 @@ condition 실습 cond1
 40 ''OPERATIONS
 기타 다른값 'DDIT'
 
-SELECT empno, ename,
+SELECT empno, ename, deptno,
         DECODE(deptno,
                 10, 'ACCOUNTING',
                 20, 'RESEARCH',
