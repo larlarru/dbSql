@@ -605,6 +605,15 @@ START WITH post_renum = 0
 CONNECT BY PRIOR post_num = post_renum;
 order by post_renum, post_reg_dt desc;
 
+select post_num,
+    LPAD('┖', (LEVEL-1)*3) || post_title post_title, 
+    post_writer, post_reg_dt, post_renum, board_num
+from post
+where board_num = 1
+START WITH post_renum = 0
+CONNECT BY PRIOR post_num = post_renum
+order siblings by post_reg_dt desc;
+
 
 
 select post_num,
@@ -617,6 +626,22 @@ CONNECT BY PRIOR post_num = post_renum
 order siblings by post_reg_dt desc;
 
 ORDER SIBLINGS BY REF_SEQ DESC, BOARD_SEQ ASC;
+
+/* 답글 xml 백업 20210127 17:24 */
+select *
+		from
+		    (select rownum rn, a.*
+		    from
+		        (select post_num,
+		            LPAD('- ', (LEVEL-1)*2, '-') || post_title post_title, 
+		            post_writer, post_reg_dt, post_renum, board_num, power
+		        from post
+		        where board_num = #{board_num}
+		        START WITH post_renum = 0 
+		        CONNECT BY PRIOR post_num = post_renum
+		        order siblings by post_reg_dt desc) a
+		    where rownum &lt;= #{page}*#{pageSize})
+		WHERE rn BETWEEN (#{page}-1)*#{pageSize} + 1 AND #{page}*#{pageSize}
 
 /* 답글 xml 백업 20210126 19:30*/
 select *
@@ -680,9 +705,16 @@ order by post_reg_dt;
 update post set post_renum = 0 where post_renum is null;
 
 select *
-from post;
+from post
+where board_num = 2;
 commit;
 
+select *
+from review
+order by review_reg_dt desc;
+
+select *
+from users;
 
 
 
