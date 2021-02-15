@@ -58,13 +58,15 @@ select *
 from post
 where board_num = 7;
 
+desc myboard;
 desc post;
+desc review;
 
 select *
 from myboard
 order by board_num;
 
-delete myboard where board_num = 27;
+delete myboard where board_num = 37;
 
 commit;
 
@@ -87,8 +89,13 @@ from review;
 select *
 from users;
 
+select *
+from review
+where post_num = 33;
 
+update review set power = 1 where review_num = 64;
 
+commit;
 
 
 
