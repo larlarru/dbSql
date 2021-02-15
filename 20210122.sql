@@ -716,6 +716,59 @@ order by review_reg_dt desc;
 select *
 from users;
 
+delete users where userid = 'brown_test';
+commit;
+
+update users set filename='brown.png', realfilename='d:\\upload\\brown.png'
+where userid ='brown';
+
+List<String>
+<select id="" resultType="String" parameterType="String"
+SELECT  b.comments
+FROM user_tab_columns a, user_col_comments b
+WHERE a.table_name = b.table_name
+AND a.column_name = b.column_name
+AND a.table_name = 'EMP'
+ORDER BY a.column_id;
+
+SELECT *
+FROM user_col_comments
+WHERE table_name = 'EMP';
+
+select *
+from users;
+
+select *
+from cycle;
+
+cid, pid, day, cnt ==> 2021 02월 일시적으로 생성하며
+1   100 2   1           1   100 20210201    1
+                        1   100 20210208    1
+                        1   100 20210215    1
+                        1   100 20210222    1
+                        
+select *
+from daily;
+
+desc daily;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

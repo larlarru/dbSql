@@ -662,10 +662,17 @@ from memberinfo;
 
 commit;
 
+select *
+from admininfo;
 
+SELECT *
+		FROM
+		hawaiiroominfo
+		UNION
+		SELECT *
+		FROM headroominfo;
 
-
-
+desc  headroominfo;
 
 
 
