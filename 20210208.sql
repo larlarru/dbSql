@@ -55,8 +55,9 @@ select *
 from myboard;
 
 select *
-from post
+from post;
 where board_num = 7;
+commit;
 
 desc myboard;
 desc post;
@@ -66,11 +67,12 @@ select *
 from myboard
 order by board_num;
 
-delete myboard where board_num = 37;
+delete myboard where board_num = 69;
 
 commit;
 
 desc myboard;
+desc post;
 
 select *
 from review
