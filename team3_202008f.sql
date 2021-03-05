@@ -352,7 +352,18 @@ from codes
 where parent_code = 'b'
 and use = 'Y';
 
+select *
+from mysimplecode;
+select *
+from mysimplecode
+where owner = 'brown';
 
+select *
+from codes
+where code_no = '111'
+or code_no = '1';
+
+desc codes;
 
 
 
