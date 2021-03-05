@@ -84,6 +84,10 @@ commit;
 select *
 from post;
 
+desc post;
+
+desc users;
+
 select*
 from review;
 
@@ -100,7 +104,8 @@ update review set power = 1 where review_num = 64;
 commit;
 
 
-
+select *
+from
 
 
 
