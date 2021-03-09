@@ -354,6 +354,9 @@ and use = 'Y';
 
 select *
 from mysimplecode;
+
+desc mysimplecode;
+
 select *
 from mysimplecode
 where owner = 'brown';
@@ -363,57 +366,500 @@ from codes
 where code_no = '111'
 or code_no = '1';
 
+select *
+from mysimplecode;
+
+SELECT my.my_simple_code, my.owner, c.code_nm item_code, co.code_nm bsn_code, my.alias, my.area
+FROM mysimplecode my
+JOIN codes c
+ON my.item_code = c.code_no 
+JOIN codes co
+ON my.bsn_code = co.code_no
+where my.owner = 'brown'
+and my.my_simple_code = '1'
+and my.use = 'Y'
+and c.use = 'Y'
+and co.use = 'Y';
+
+where code_no = '111'
+or code_no = '1';
+
+select *
+from codes;
+
+
+select *
+from codes
+where code_nm ='물주기';
+
 desc codes;
 
+desc mysimplecode;
+
+<-- db 바꾼 이후 -->
+SELECT
+		f.f_diary_no, f.writer, f.my_simple_code, f.content,
+		f.reg_dt, f.weather, f.low_temp,
+		f.high_temp, f.rainfall, f.humid,
+		f.yield, f.area, files.file_nm
+		file_no, c.code_nm b_type_code, co.code_nm w_step_code,
+		cod.code_nm item_code
+		FROM farmdiary f
+		JOIN codes c
+		ON f.b_type_code = c.code_no
+		JOIN codes co
+		ON f.w_step_code = co.code_no
+		JOIN codes cod
+		ON f.item_code = cod.code_no
+		JOIN files files
+		ON f.file_no = files.file_no
+        WHERE f.use_yn = 'Y'
+		ORDER BY f.reg_dt desc;
+
+desc farmdiary;
+desc files;
+desc codes;
+
+select *
+from farmdiary;
+
+select *
+from codes;
+
+select *
+from codes
+where code_no = '1'
+or code_no = '11'
+or code_no = '111';
+
+SELECT
+		f.f_diary_no, f.writer, f.my_simple_code, f.content,
+		f.reg_dt, f.weather, f.low_temp,
+		f.high_temp, f.rainfall, f.humid,
+		f.yield, f.area, files.file_nm
+		file_no, c.code_nm b_type_code, co.code_nm w_step_code,
+		cod.code_nm item_code
+		FROM farmdiary f
+		JOIN codes c
+		ON f.b_type_code = c.code_no
+		JOIN codes co
+		ON f.w_step_code = co.code_no
+		JOIN codes cod
+		ON f.item_code = cod.code_no
+		JOIN files files
+		ON f.file_no = files.file_no 
+		ORDER BY f.reg_dt desc;
+
+select *
+from farmdiary;
+
+select *
+from codes
+where code_no = '151';
+
+select f.f_diary_no, f.writer, f.my_simple_code, 
+    f.content, f.reg_dt, f.weather, f.low_temp, 
+    f.high_temp, f.rainfall, f.humid, 
+    f.yield, f.area, files.file_nm file_no, 
+    c.code_nm b_type_code, co.code_nm w_step_code, cod.code_nm item_code
+from farmdiary f
+JOIN codes c
+ON f.b_type_code = c.code_no
+JOIN codes co
+ON f.w_step_code = co.code_no
+JOIN codes cod
+ON f.w_step_code = cod.code_no
+JOIN files files
+ON f.file_no = files.file_no
+where f.use_yn = 'Y'
+and c.use_yn = 'Y'
+and co.use_yn = 'Y'
+and cod.use_yn = 'Y'
+and files.use_yn ='Y';
+
+desc files;
+
+select *
+from codes
+where parent_code = '100'
+or parent_code = '200'
+or parent_code = '300'
+or parent_code = '400'
+and use_yn = 'Y';
+
+select *
+from codes;
+
+SELECT *
+		FROM
+		codes
+		WHERE parent_code = '1'
+		OR parent_code = '2'
+		OR parent_code = '3'
+		OR parent_code = '4'
+		OR parent_code = '5'
+		OR parent_code = '6'
+		OR parent_code = '7'
+		AND use_yn = 'Y';
+SELECT *
+		FROM
+		codes
+		WHERE parent_code = 'b'
+		AND use_yn = 'Y';
+
+select *
+from mysimplecode
+where owner = 'brown'
+and use_yn = 'Y';
+
+select *
+from codes
+where code_no = '111'
+or code_no = '1';
+
+	SELECT my.my_simple_code, my.owner, 
+		c.code_nm item_code, co.code_nm b_type_code, my.code_alias, my.area
+		FROM mysimplecode my
+		JOIN codes c
+		ON my.item_code = c.code_no 
+		JOIN codes co
+		ON my.b_type_code = co.code_no
+		where my.owner = 'brown'
+		and my.my_simple_code = 1
+		and my.use_yn = 'Y'
+		and c.use_yn = 'Y'
+		and co.use_yn = 'Y';
+
+SELECT
+		f.f_diary_no, f.writer, f.content, f.reg_dt,
+		f.weather, f.low_temp, f.high_temp, f.rainfall, f.humid,
+		f.yield,
+		f.area, files.file_nm file_no, c.code_nm b_type_code, co.code_nm
+		w_step_code, cod.code_nm item_code
+		FROM farmdiary f
+		JOIN codes c
+		ON
+		f.b_type_code = c.code_no
+		JOIN codes co
+		ON
+		f.w_step_code = co.code_no
+		JOIN
+		codes cod
+		ON f.item_code = cod.code_no
+		JOIN files files
+		ON f.file_no =
+		files.file_no
+		where f.reg_dt >=
+		TO_DATE('20210305', 'YYYY-MM-DD')
+		AND f.reg_dt <= TO_DATE('20210305', 'YYYY-MM-DD')
+		OR f.item_code =
+		''
+		OR f.w_step_code = ''
+        AND f.use_yn = 'Y'
+        AND c.use_yn = 'Y'
+        AND co.use_yn = 'Y'
+        AND cod.use_yn = 'Y'
+        AND files.use_yn = 'Y'
+		ORDER BY f.reg_dt desc;
+
+select *
+from farmdiary;
+
+	SELECT
+		f.f_diary_no, f.writer, f.content,
+		f.reg_dt,
+		f.weather, f.low_temp,
+		f.high_temp, f.rainfall, f.humid,
+		f.yield, f.area, files.file_nm file_no,
+		c.code_nm b_type_code, co.code_nm
+		w_step_code,
+		cod.code_nm item_code
+		FROM farmdiary f
+		JOIN codes c
+		ON f.b_type_code = c.code_no
+		JOIN codes co
+		ON f.w_step_code = co.code_no
+		JOIN codes cod
+		ON f.item_code = cod.code_no
+		JOIN files files
+		ON f.file_no = files.file_no
+		WHERE f.f_diary_no = 1;
 
 
+desc files;
+
+desc farmdiary;
 
 
+	select f.f_diary_no, f.writer, f.my_simple_code, 
+		    f.content, f.reg_dt, f.weather, f.low_temp, 
+		    f.high_temp, f.rainfall, f.humid, 
+		    f.yield, f.area, files.file_nm file_nm, 
+		    c.code_nm b_type_code, co.code_nm w_step_code, cod.code_nm item_code
+		from farmdiary f
+		JOIN codes c
+		ON f.b_type_code = c.code_no
+		JOIN codes co
+		ON f.w_step_code = co.code_no
+		JOIN codes cod
+		ON f.w_step_code = cod.code_no
+		JOIN files files
+		ON f.file_no = files.file_no
+		where f.use_yn = 'Y'
+		and c.use_yn = 'Y'
+		and co.use_yn = 'Y'
+		and cod.use_yn = 'Y'
+		and files.use_yn ='Y';
+
+SELECT
+		f.f_diary_no, f.writer, f.content, f.reg_dt,
+		f.weather, f.low_temp, f.high_temp, f.rainfall, f.humid,
+		f.yield,
+		f.area, files.file_nm file_no, c.code_nm b_type_code, co.code_nm
+		w_step_code, cod.code_nm item_code
+		FROM farmdiary f
+		JOIN codes c
+		ON
+		f.b_type_code = c.code_no
+		JOIN codes co
+		ON
+		f.w_step_code = co.code_no
+		JOIN
+		codes cod
+		ON f.item_code = cod.code_no
+		JOIN files files
+		ON f.file_no =
+		files.file_no;
+		where f.reg_dt >=
+		TO_CHAR(TO_DATE('20210305', 'YYYY-MM-DD'), 'YYYY/MM/DD')
+		AND f.reg_dt <= TO_CHAR(TO_DATE('20210306', 'YYYY-MM-DD'),'YYYY/MM/DD')
+		OR f.item_code = ''
+		OR f.w_step_code = ''
+        AND f.use_yn = 'Y'
+        AND c.use_yn = 'Y'
+        AND co.use_yn = 'Y'
+        AND cod.use_yn = 'Y'
+        AND files.use_yn = 'Y'
+		ORDER BY f.reg_dt desc;
+
+select TO_CHAR(TO_DATE('20210305', 'YYYY-MM-DD')+1)
+from dual;
+
+SELECT
+		f.f_diary_no, f.writer, f.content, f.reg_dt,
+		f.weather, f.low_temp, f.high_temp, f.rainfall, f.humid,
+		f.yield,
+		f.area, files.file_nm file_nm, c.code_nm b_type_code, co.code_nm
+		w_step_code, cod.code_nm item_code
+		FROM farmdiary f
+		JOIN codes c
+		ON
+		f.b_type_code = c.code_no
+		JOIN codes co
+		ON
+		f.w_step_code = co.code_no
+		JOIN
+		codes cod
+		ON f.item_code = cod.code_no
+		JOIN files files
+		ON f.file_no =
+		files.file_no;
+
+	select f.f_diary_no, f.writer, f.my_simple_code, 
+		    f.content, f.reg_dt, f.weather, f.low_temp, 
+		    f.high_temp, f.rainfall, f.humid, 
+		    f.yield, f.area, files.file_nm file_nm, 
+		    c.code_nm b_type_code, co.code_nm w_step_code, cod.code_nm item_code
+		from farmdiary f
+		JOIN codes c
+		ON f.b_type_code = c.code_no
+		JOIN codes co
+		ON f.w_step_code = co.code_no
+		JOIN codes cod
+		ON f.item_code = cod.code_no
+		JOIN files files
+		ON f.file_no = files.file_no
+		where f.use_yn = 'Y'
+		and c.use_yn = 'Y'
+		and co.use_yn = 'Y'
+		and cod.use_yn = 'Y'
+		and files.use_yn ='Y';
+
+SELECT my.my_simple_code, my.owner, 
+		c.code_nm item_code, co.code_nm b_type_code, my.code_alias, my.area
+		FROM mysimplecode my
+		JOIN codes c
+		ON my.item_code = c.code_no 
+		JOIN codes co
+		ON my.b_type_code = co.code_no
+		where my.owner = 'brown'
+		and my.my_simple_code = 1
+		and my.use_yn = 'Y'
+		and c.use_yn = 'Y'
+		and co.use_yn = 'Y';
+
+select *
+from codes;
+
+SELECT *
+		FROM
+		codes
+		WHERE parent_code = '1'
+		OR parent_code = '2'
+		OR parent_code = '3'
+		OR parent_code = '4'
+		OR parent_code = '5'
+		OR parent_code = '6'
+		OR parent_code = '7'
+		AND use_yn = 'Y';
+
+desc mysimplecode;
+
+select *
+from mysimplecode;
 
 
+select *
+from codes;
+desc codes;
+
+select seq_mysimplecode.NEXTVAL
+from dual;
+
+select seq_files.NEXTVAL
+from dual;
+
+select seq_farmdiary.NEXTVAL
+from dual;
+
+commit;
+
+SELECT *
+FROM codes
+where code_no = '1';
 
 
+desc codes;
 
+select *
+from farmdiary;
+desc farmdiary;
 
+select seq_files.currval  file_no
+from dual;
 
+select seq_files.currval from dual;
 
+select seq_files.nextval
+from dual;
 
+select *
+from files;
 
+commit;
 
+select *
+from files
+order by file_no;
+desc files;
 
+select *
+from mysimplecode;
+desc mysimplecode;
 
+delete mysimplecode where my_simple_code = 24;
 
+commit;
 
+select *
+from mysimplecode;
 
+	select f.f_diary_no, f.writer, f.my_simple_code, 
+		    f.content, f.reg_dt, f.weather, f.low_temp, 
+		    f.high_temp, f.rainfall, f.humid, 
+		    f.yield, f.area, files.file_nm file_nm, 
+		    c.code_nm b_type_code, co.code_nm w_step_code, cod.code_nm item_code
+		from farmdiary f
+		JOIN codes c
+		ON f.b_type_code = c.code_no
+		JOIN codes co
+		ON f.w_step_code = co.code_no
+		JOIN codes cod
+		ON f.item_code = cod.code_no
+		JOIN files files
+		ON f.file_no = files.file_no
+		where f.use_yn = 'Y'
+		and c.use_yn = 'Y'
+		and co.use_yn = 'Y'
+		and cod.use_yn = 'Y'
+		and files.use_yn ='Y'
+        and writer = 'brown';
 
+SELECT
+		f.f_diary_no, f.writer, f.my_simple_code, f.content,
+		f.reg_dt,
+		f.weather, f.low_temp,
+		f.high_temp, f.rainfall, f.humid,
+		f.yield, f.area, files.file_nm file_nm, f.file_no,
+		c.code_nm b_type_code, co.code_nm
+		w_step_code,
+		cod.code_nm item_code
+		FROM farmdiary f
+		JOIN codes c
+		ON f.b_type_code = c.code_no
+		JOIN codes co
+		ON f.w_step_code = co.code_no
+		JOIN codes cod
+		ON f.item_code = cod.code_no
+		JOIN files files
+		ON f.file_no = files.file_no
+		WHERE f.f_diary_no = 23;
 
+select *
+from farmdiary;
 
+desc files;
 
+select *
+from files
+order by file_no;
 
+select *
+from farmdiary
+where writer = 'brown';
 
+SELECT
+		f.f_diary_no, f.writer, f.my_simple_code, f.content, f.reg_dt,
+		f.weather, f.low_temp, f.high_temp, f.rainfall, f.humid,
+		f.yield,
+		f.area, files.file_nm file_nm, c.code_nm b_type_code, co.code_nm
+		w_step_code, cod.code_nm item_code
+		FROM farmdiary f
+		JOIN codes c
+		ON f.b_type_code = c.code_no
+		JOIN codes co
+		ON f.w_step_code = co.code_no
+		JOIN codes cod
+		ON f.item_code = cod.code_no
+		JOIN files files
+		ON f.file_no = files.file_no
+		where f.reg_dt >= TO_DATE('20210308', 'YYYY-MM-DD')
+		AND f.reg_dt < TO_DATE('20210309', 'YYYY-MM-DD')+1
+		AND f.writer = 'brown'
+		AND f.item_code = '141'
+        AND f.use_yn = 'Y'
+        AND c.use_yn = 'Y'
+        AND co.use_yn = 'Y'
+        AND cod.use_yn = 'Y'
+        AND files.use_yn = 'Y'
+		ORDER BY f.reg_dt desc;
 
+select *
+from farmdiary;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+select *
+from codes
+where code_no = '141';
 
 
 
