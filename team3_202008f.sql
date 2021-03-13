@@ -51,6 +51,13 @@ FROM cols
 WHERE Lower(Table_name) = 'mysimplecode';
 
 
+SELECT 'private ' ||
+    -- 자료형이름은 NUMBER일 때만 int, 나머지는 String으로 한다.
+    Decode(Lower(Data_type), 'number', 'int ', 'String ') ||
+    Lower(Column_name) || ';'
+FROM cols
+WHERE Lower(Table_name) = 'itemmanual';
+
 select fdiary_no, writer, content, reg_dt
 				 weather, low_temp, high_temp, rainfall,
 				 humid, yield, file1, file2, area, active,
@@ -860,6 +867,212 @@ from farmdiary;
 select *
 from codes
 where code_no = '141';
+
+select f.f_diary_no, f.writer, f.my_simple_code, 
+		    f.content, f.reg_dt, f.weather, f.low_temp, 
+		    f.high_temp, f.rainfall, f.humid, 
+		    f.yield, f.area, files.file_nm file_nm, 
+		    c.code_nm b_type_code, co.code_nm w_step_code, cod.code_nm item_code
+		from farmdiary f
+		JOIN codes c
+		ON f.b_type_code = c.code_no
+		JOIN codes co
+		ON f.w_step_code = co.code_no
+		JOIN codes cod
+		ON f.item_code = cod.code_no
+		JOIN files files
+		ON f.file_no = files.file_no
+		where f.use_yn = 'Y'
+		and c.use_yn = 'Y'
+		and co.use_yn = 'Y'
+		and cod.use_yn = 'Y'
+		and files.use_yn ='Y'
+		and writer = 'brown'
+		ORDER BY reg_dt desc;
+
+select *
+from itemmanual;
+
+desc itemmanual;
+
+insert into itemmanual values(seq_itemmanual.nextval, 'admin', 'test1', sysdate, 0, '','Y');
+
+	select *
+		from codes
+		where parent_code = '100'
+		or parent_code = '200'
+		or parent_code = '300'
+		or parent_code = '400'
+		and use_yn = 'Y';
+
+desc codes;
+
+select *
+from farmdiary;
+
+select f.f_diary_no, f.writer, f.my_simple_code, 
+		    f.reg_dt, f.weather, f.low_temp, 
+		    f.high_temp, f.rainfall, f.humid, 
+		    f.yield, f.area, c.code_nm b_type_code, cod.code_nm item_code
+		from farmdiary f
+		JOIN codes c
+		ON f.b_type_code = c.code_no
+		JOIN codes co
+		ON f.w_step_code = co.code_no
+		JOIN codes cod
+		ON f.item_code = cod.code_no
+		JOIN files files
+		ON f.file_no = files.file_no
+		where f.use_yn = 'Y'
+		and c.use_yn = 'Y'
+		and co.use_yn = 'Y'
+		and cod.use_yn = 'Y'
+		and files.use_yn ='Y'
+        and f.yield > 0
+		and writer = 'brown'
+		ORDER BY reg_dt desc;
+        
+select *
+from codes
+where code_no = '54';
+
+select *
+from farmdiary;
+
+select *
+		from codes
+		where parent_code = '100'
+		or parent_code = '200'
+		or parent_code = '300'
+		or parent_code = '400'
+		and use_yn = 'Y';
+
+select *
+from farmdiary
+order by reg_dt;
+
+select *
+from files
+order by file_no;
+
+select *
+from mysimplecode
+order by my_simple_code;
+
+delete mysimplecode where my_simple_code = 105;
+
+commit;
+
+select *
+from codes;
+
+update files set use_yn = 'Y';
+
+select *
+from files;
+
+commit;
+
+update farmdiary set use_yn = 'Y';
+
+select *
+from codes;
+
+select f.f_diary_no, f.writer, f.my_simple_code, mysim.code_alias code_alias, 
+		    f.content, f.reg_dt, f.weather, f.low_temp, 
+		    f.high_temp, f.rainfall, f.humid, 
+		    f.yield, f.area, files.file_nm file_nm, 
+		    c.code_nm b_type_code, co.code_nm w_step_code, cod.code_nm item_code
+		from farmdiary f
+		JOIN codes c
+		ON f.b_type_code = c.code_no
+		JOIN codes co
+		ON f.w_step_code = co.code_no
+		JOIN codes cod
+		ON f.item_code = cod.code_no
+		JOIN files files
+		ON f.file_no = files.file_no
+        JOIN mysimplecode mysim
+        ON f.my_simple_code = mysim.my_simple_code
+		where f.use_yn = 'Y'
+		and c.use_yn = 'Y'
+		and co.use_yn = 'Y'
+		and cod.use_yn = 'Y'
+		and files.use_yn ='Y'
+        and mysim.use_yn = 'Y'
+		and writer = 'brown'
+		ORDER BY reg_dt desc;
+
+select *
+from mysimplecode;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
