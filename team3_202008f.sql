@@ -1006,54 +1006,307 @@ select f.f_diary_no, f.writer, f.my_simple_code, mysim.code_alias code_alias,
 select *
 from mysimplecode;
 
+select *
+from farmdiary
+where writer = 'brown';
+
+select *
+from files
+order by file_no;
+
+select seq_files.carrival from dual;
+
+select seq_files.nextval
+from dual;
+
+select *
+from codes
+where parent_code in 
+    (select code_no
+    from codes
+    where parent_code = 
+        (select code_no
+        from codes
+        where parent_code = 'i'))
+and use_yn = 'Y'        
+    ;
+
+select *
+    from codes
+    where parent_code = 
+        (select code_no
+        from codes
+        where parent_code = 'i');
+
+
+select *
+from codes
+where parent_code = 'b';
+
+
+select *
+from codes
+where parent_code = '1';
+
+select *
+from codes
+where parent_code = (select code_no
+                        from codes
+                        where code_nm = '생산');
+                               
+
+select *
+from mysimplecode;
+
+select *
+from codes;
+
+select *
+		from codes
+		where parent_code in 
+		    (select code_no
+		    from codes
+		    where parent_code = 
+		        (select code_no
+		        from codes
+		        where parent_code = 'i')
+		    and code_no = '100')
+		and use_yn = 'Y';
+
+select *
+from codes
+where parent_code = 
+    (select code_no
+    from codes
+    where parent_code = 'i');
+      
+	select 
+			code_no
+			,code_nm
+			,parent_code
+		from codes
+		where parent_code in 
+		    (select code_no
+		    from codes
+		    where parent_code = 
+		        (select code_no
+		        from codes
+		        where parent_code = 'i')
+		    and code_no = '100')
+		and use_yn = 'Y';
+
+select *
+from itemmanual;
+
+desc itemmanual;
 
 
 
+insert into itemmanual values(seq_itemmanual.nextval, 'admin', '파일이름', sysdate, '0', '1', 'Y');
+
+delete itemmanual where manual_code  = 21;
+
+commit;
+
+select *
+from files
+where file_no = 141;
+
+SELECT i.manual_code
+    , i.writer
+    , i.ifm_nm
+    , i.file_no
+    , i.item_code
+    , f.file_nm
+    , c.code_nm
+FROM itemmanual i
+JOIN files f
+ON i.file_no = f.file_no
+JOIN codes c
+ON i.item_code = c.code_no
+WHERE i.use_yn = 'Y'
+AND f.use_yn = 'Y'
+AND c.use_yn = 'Y';
+
+		SELECT i.manual_code manual_code
+		    , i.writer writer
+		    , i.ifm_nm ifm_nm
+		    , i.file_no file_no
+		    , i.item_code item_code
+		    , f.file_nm file_nm
+		FROM itemmanual i
+		JOIN files f
+		ON i.file_no = f.file_no
+		JOIN codes c
+		ON i.item_code = c.code_no
+		WHERE i.use_yn = 'Y'
+		AND f.use_yn = 'Y'
+		AND c.use_yn = 'Y';
+
+desc itemmanual;
+
+select *
+from codes
+where code_no = '112';
+
+select *
+from files;
+
+select seq_files.nextval
+from dual;
+
+commit;
+
+SELECT i.manual_code manual_code
+		    , i.writer writer
+		    , i.ifm_nm ifm_nm
+		    , i.file_no file_no
+		    , i.item_code item_code
+		    , f.file_nm file_nm
+		FROM itemmanual i
+		JOIN files f
+		ON i.file_no = f.file_no
+		JOIN codes c
+		ON i.item_code = c.code_no
+		WHERE i.use_yn = 'Y'
+		AND f.use_yn = 'Y'
+		AND c.use_yn = 'Y';
 
 
+SELECT i.manual_code
+		    , i.writer
+		    , i.ifm_nm
+		    , i.file_no
+		    , i.item_code
+		    , f.file_nm
+		    , c.code_nm
+		FROM itemmanual i
+		JOIN files f
+		ON i.file_no = f.file_no
+		JOIN codes c
+		ON i.item_code = c.code_no
+		WHERE i.use_yn = 'Y'
+		AND f.use_yn = 'Y'
+		AND c.use_yn = 'Y'
+		AND i.manual_code = 1;
+
+select *
+from itemmanual;
+
+desc itemmanual;
+
+select *
+from market;
 
 
+desc market;
 
 
+SELECT 
+    m.market_no
+	, m.writer
+	, m.head_code
+	, m.title
+	, m.item_code
+	, m.content
+	, m.price
+	, m.reg_dt
+	, m.thumbnail
+    , m.mobile
+	, m.hit
+    , c.code_nm code_nm
+FROM market m
+JOIN codes c
+ON m.item_code = c.code_no
+WHERE m.use_yn = 'Y'
+AND c.use_yn = 'Y';
+
+JOIN marketfiles mf
+ON m.thumbnail = mf.file_record_no
 
 
+select *
+from market;
+
+desc market;
+
+desc marketfiles;
+
+select seq_marketfiles.nextval
+from dual;
+
+select seq_market.nextval
+from dual;
 
 
+insert into marketfiles values(seq_marketfiles.nextval, 0, 0, 'Y');
+
+select *
+from codes
+where parent_code in (
+    select code_no
+    from codes
+    where parent_code =  (
+        select code_no
+        from codes
+        where parent_code = 'i'))
+and use_yn = 'Y';
+
+SELECT 
+		    m.market_no
+			, m.writer
+			, m.head_code
+			, m.title
+			, m.item_code
+			, m.content
+			, m.price
+			, m.reg_dt
+			, m.thumbnail
+		    , m.mobile
+			, m.hit
+		    , c.code_nm code_nm
+		FROM market m
+		JOIN codes c
+		ON m.item_code = c.code_no
+		WHERE m.use_yn = 'Y'
+		AND c.use_yn = 'Y'
+		ORDER BY reg_dt desc;
 
 
+SELECT 
+    m.market_no
+	, m.writer
+	, m.head_code
+	, m.title
+	, m.item_code
+	, m.content
+	, m.price
+	, m.reg_dt
+	, m.thumbnail
+	, m.mobile
+	, m.hit
+    , m.thumbnail 
+	, c.code_nm code_nm
+FROM market m
+JOIN codes c
+ON m.item_code = c.code_no
+WHERE writer = 'brown'
+AND m.market_no = '1'
+AND m.use_yn = 'Y'
+AND c.use_yn = 'Y';
 
+update market set hit = hit+1 where market_no = 1;
 
+desc market;
 
+select *
+from marketfiles
+where market_no = ;
 
+desc marketfiles;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+select *
+from codes;
 
 
 
