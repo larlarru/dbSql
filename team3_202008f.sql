@@ -1300,7 +1300,7 @@ update market set hit = hit+1 where market_no = 1;
 desc market;
 
 select *
-from marketfiles
+from marketfiles;
 where market_no = ;
 
 desc marketfiles;
@@ -1308,22 +1308,112 @@ desc marketfiles;
 select *
 from codes;
 
+select *
+from codes
+where parent_code in (
+select code_no
+from codes
+where parent_code = 'mhead');
 
+select *
+from codes
+where parent_code = 'mhead'
+and use_yn = 'Y';
 
+select *
+from codes
+where parent_code in (
+select code_no
+from codes
+where parent_code = 'i');
 
+select *
+from market;
 
+desc market;
 
+select *
+from files
+order by file_no desc;
 
+SELECT 
+		    m.market_no
+			, m.writer
+			, m.head_code
+			, m.title
+			, m.item_code
+			, m.content
+			, m.price
+			, m.reg_dt
+			, m.thumbnail
+		    , m.mobile
+			, m.hit
+		    , c.code_nm code_nm
+		FROM market m
+		JOIN codes c
+		ON m.item_code = c.code_no
+		WHERE m.use_yn = 'Y'
+		AND c.use_yn = 'Y'
+		ORDER BY reg_dt desc;
 
+	SELECT my.my_simple_code, my.owner, 
+		c.code_nm item_code, co.code_nm b_type_code, my.code_alias, my.area
+		FROM mysimplecode my
+		JOIN codes c
+		ON my.item_code = c.code_no 
+		JOIN codes co
+		ON my.b_type_code = co.code_no
+		where my.owner = '1'
+		and my.my_simple_code = 41
+		and my.use_yn = 'Y'
+		and c.use_yn = 'Y'
+		and co.use_yn = 'Y';
 
+select *
+		from codes
+		where parent_code in (select code_no
+		                        from codes
+		                        where code_nm = '기타')
+		AND use_yn = 'Y';
 
+	SELECT 
+		    m.market_no
+			, m.writer
+			, m.head_code
+			, m.title
+			, m.item_code
+			, m.content
+			, m.price
+			, m.reg_dt
+			, m.thumbnail
+		    , m.mobile
+			, m.hit
+		    , c.code_nm item_code_nm
+            , co.code_nm head_code_nm
+		FROM market m
+		JOIN codes c
+		ON m.item_code = c.code_no
+        JOIN codes co
+        ON m.head_code = co.code_no
+		WHERE m.use_yn = 'Y'
+		AND c.use_yn = 'Y'
+		ORDER BY reg_dt desc;
 
+SELECT 
+    m.file_record_no
+    , m.market_no
+    , m.file_no
+    , f.file_nm
+FROM marketfiles m
+JOIN files f
+ON m.file_no = f.file_no
+WHERE market_no = 28
+AND m.use_yn = 'Y'
+AND f.use_yn = 'Y';
 
+desc marketfiles;
 
-
-
-
-
+desc files;
 
 
 
