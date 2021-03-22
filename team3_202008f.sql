@@ -1407,7 +1407,7 @@ SELECT
 FROM marketfiles m
 JOIN files f
 ON m.file_no = f.file_no
-WHERE market_no = 28
+WHERE market_no = 27
 AND m.use_yn = 'Y'
 AND f.use_yn = 'Y';
 
@@ -1415,7 +1415,80 @@ desc marketfiles;
 
 desc files;
 
+SELECT 
+		    m.market_no
+			, m.writer
+			, m.head_code
+			, m.title
+			, m.item_code
+			, m.content
+			, m.price
+			, m.reg_dt
+			, m.thumbnail
+		    , m.mobile
+			, m.hit
+		    , c.code_nm item_code_nm
+            , co.code_nm head_code_nm
+            , f.file_nm thumbnail_file_nm
+		FROM market m
+		JOIN codes c
+		ON m.item_code = c.code_no
+        JOIN codes co
+        ON m.head_code = co.code_no
+        JOIN files f
+        ON m.thumbnail = f.file_no
+		WHERE 1=1
+        AND m.use_yn = 'Y'
+		AND c.use_yn = 'Y'
+        AND f.use_yn = 'Y';
+        AND m.item_code = '112'
+        AND m.title like '%'||'찹'||'%'
+		ORDER BY reg_dt desc;
 
+select *
+from files
+where file_no = 0;
 
+select *
+from marketfiles;
 
+select *
+from market;
+
+select *
+from market m
+JOIN files f
+ON m.thumbnail = f.file_no;
+
+SELECT 
+		    m.market_no
+			, m.writer
+			, m.head_code
+			, m.title
+			, m.item_code
+			, m.content
+			, m.price
+			, m.reg_dt
+			, m.thumbnail
+		    , m.mobile
+			, m.hit
+		    , c.code_nm item_code_nm
+            , co.code_nm head_code_nm
+            , f.file_nm thumbnail_file_nm
+		FROM market m
+		JOIN codes c
+		ON m.item_code = c.code_no
+        JOIN codes co
+        ON m.head_code = co.code_no
+        JOIN files f
+        ON m.thumbnail = f.file_no
+		WHERE 1=1
+        AND m.use_yn = 'Y'
+		AND c.use_yn = 'Y'
+		AND writer = 'brown'
+		AND m.market_no = 27
+		ORDER BY reg_dt desc;
+
+select *
+from marketfiles;
 
