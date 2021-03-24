@@ -1546,4 +1546,57 @@ SELECT
 		ON m.file_no = f.file_no
 		WHERE f.file_no = 41
 		AND m.use_yn = 'Y'
-		AND f.use_yn = 'Y';        
+		AND f.use_yn = 'Y';     
+
+SELECT *
+		FROM files f
+		JOIN market m
+		ON f.file_no = m.thumbnail
+		where f.use_yn = 'Y'
+		and m.use_yn = 'Y';
+and file_nm = #{file_nm }
+and m.market_no = #{market_no };
+
+		        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
