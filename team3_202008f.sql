@@ -1407,11 +1407,15 @@ SELECT
 FROM marketfiles m
 JOIN files f
 ON m.file_no = f.file_no
-WHERE market_no = 27
+WHERE market_no = 28;
 AND m.use_yn = 'Y'
 AND f.use_yn = 'Y';
 
 desc marketfiles;
+
+select *
+from market;
+
 
 desc files;
 
@@ -1486,9 +1490,60 @@ SELECT
         AND m.use_yn = 'Y'
 		AND c.use_yn = 'Y'
 		AND writer = 'brown'
-		AND m.market_no = 27
+		AND m.market_no = 28
 		ORDER BY reg_dt desc;
 
 select *
 from marketfiles;
 
+select *
+from files;
+
+
+SELECT *
+FROM files f
+JOIN market m
+ON f.file_no = m.thumbnail
+where file_nm = 'test.jpg'
+and m.market_no = 28
+and f.use_yn = 'Y'
+and m.use_yn = 'Y';
+
+SELECT 
+		    m.file_record_no
+		    , m.market_no
+		    , m.file_no
+		    , f.file_nm
+		FROM marketfiles m
+		JOIN files f
+		ON m.file_no = f.file_no
+		WHERE market_no = 28
+		AND m.use_yn = 'Y'
+		AND f.use_yn = 'Y';
+
+select *
+from files;
+
+SELECT 
+		    m.file_record_no
+		    , m.market_no
+		    , m.file_no
+		    , f.file_nm
+		FROM marketfiles m
+		JOIN files f
+		ON m.file_no = f.file_no
+		WHERE market_no = 27
+		AND m.use_yn = 'Y'
+		AND f.use_yn = 'Y';
+
+SELECT 
+		    m.file_record_no
+		    , m.market_no
+		    , m.file_no
+		    , f.file_nm
+		FROM marketfiles m
+		JOIN files f
+		ON m.file_no = f.file_no
+		WHERE f.file_no = 41
+		AND m.use_yn = 'Y'
+		AND f.use_yn = 'Y';        
