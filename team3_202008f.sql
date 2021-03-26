@@ -1566,9 +1566,10 @@ where file_no = 31;
 
 desc marketreply;
 
-seq_marketreply
+seq_marketreply;
 		        
-
+select *
+from marketreply;
 
 
 
