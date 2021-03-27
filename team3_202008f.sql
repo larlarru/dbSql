@@ -1571,35 +1571,243 @@ seq_marketreply;
 select *
 from marketreply;
 
+desc market;
+
+desc WEEKLYINFO;
+
+SELECT 
+    w.w_info_no w_info_no
+    , w.writer writer
+    , w.title title
+    , w.reg_dt reg_dt
+    , w.hit hit
+    , w.file_no file_no
+    , f.file_nm file_nm     
+FROM WEEKLYINFO w
+JOIN files f
+ON w.file_no = f.file_no
+WHERE w.use_yn = 'Y'
+AND f.use_yn = 'Y';
+
+select *
+from WEEKLYINFO;
+
+select *
+from files;
+
+select f.f_diary_no, f.writer, f.my_simple_code, mysim.code_alias code_alias, 
+		    f.content, f.reg_dt, f.weather, f.low_temp, 
+		    f.high_temp, f.rainfall, f.humid, 
+		    f.yield, f.area, files.file_nm file_nm, 
+		    c.code_nm b_type_code, co.code_nm w_step_code, cod.code_nm item_code
+		from farmdiary f
+		JOIN codes c
+		ON f.b_type_code = c.code_no
+		JOIN codes co
+		ON f.w_step_code = co.code_no
+		JOIN codes cod
+		ON f.item_code = cod.code_no
+		JOIN files files
+		ON f.file_no = files.file_no
+        JOIN mysimplecode mysim
+        ON f.my_simple_code = mysim.my_simple_code
+		where f.use_yn = 'Y'
+		and c.use_yn = 'Y'
+		and co.use_yn = 'Y'
+		and cod.use_yn = 'Y'
+		and files.use_yn ='Y'
+        and mysim.use_yn = 'Y'
+		and writer = 'brown'
+		ORDER BY reg_dt desc;
 
 
+select f.f_diary_no, f.writer, f.my_simple_code
+            , (select code_alias from mysimplecode where my_simple_code = f.my_simple_code) code_alias, 
+		    f.content, f.reg_dt, f.weather, f.low_temp, 
+		    f.high_temp, f.rainfall, f.humid, 
+		    f.yield, f.area
+            , ( select file_nm from files where file_no = f.file_no) file_nm
+		    , ( select code_nm from codes where code_no = f.b_type_code) b_type_code
+            , ( select code_nm from codes where code_no = f.w_step_code)  w_step_code
+            , ( select code_nm from codes where code_no = f.item_code) item_code            
+		from farmdiary f
+		where (select use_yn from files where file_no = f.file_no) = 'Y'
+		and (select use_yn from codes where code_no = f.b_type_code) = 'Y'
+		and (select use_yn from codes where code_no = f.w_step_code) = 'Y'
+		and (select use_yn from codes where code_no = f.item_code) = 'Y'
+        and (select use_yn from mysimplecode where my_simple_code = f.my_simple_code) = 'Y'        
+		and writer = 'brown'
+		ORDER BY reg_dt desc;
 
 
+select *
+from farmdiary;
+
+SELECT my.my_simple_code, my.owner, 
+		c.code_nm item_code, co.code_nm b_type_code, my.code_alias, my.area
+		FROM mysimplecode my
+		JOIN codes c
+		ON my.item_code = c.code_no 
+		JOIN codes co
+		ON my.b_type_code = co.code_no
+		where my.owner = 'brown'
+		and my.my_simple_code = 1
+		and my.use_yn = 'Y'
+		and c.use_yn = 'Y'
+		and co.use_yn = 'Y';
+
+SELECT my.my_simple_code, my.owner
+        , (select code_nm from codes where code_no = my.item_code) item_code
+        , ( select code_nm from codes where code_no = my.b_type_code) b_type_code
+        , my.code_alias, my.area
+		FROM mysimplecode my        
+		where my.owner = 'brown'
+		and my.my_simple_code = 1
+		and my.use_yn = 'Y'
+		and (select use_yn from codes where code_no = my.item_code) = 'Y'
+		and (select use_yn from codes where code_no = my.b_type_code) = 'Y';
+
+select f.f_diary_no, f.writer, f.my_simple_code, mysim.code_alias code_alias, 
+		    f.content, f.reg_dt, f.weather, f.low_temp, 
+		    f.high_temp, f.rainfall, f.humid, 
+		    f.yield, f.area, files.file_nm file_nm, 
+		    c.code_nm b_type_code, co.code_nm w_step_code, cod.code_nm item_code
+		from farmdiary f
+		JOIN codes c
+		ON f.b_type_code = c.code_no
+		JOIN codes co
+		ON f.w_step_code = co.code_no
+		JOIN codes cod
+		ON f.item_code = cod.code_no
+		JOIN files files
+		ON f.file_no = files.file_no
+        JOIN mysimplecode mysim
+        ON f.my_simple_code = mysim.my_simple_code
+		where
+        f.writer = 'brown'
+		AND f.item_code = '112'
+        AND f.use_yn = 'Y'
+		and c.use_yn = 'Y'
+		and co.use_yn = 'Y'
+		and cod.use_yn = 'Y'
+		and files.use_yn ='Y'
+        and mysim.use_yn = 'Y'
+		ORDER BY f.reg_dt desc;
 
 
+select f.f_diary_no, f.writer, f.my_simple_code
+            , (select code_alias from mysimplecode where my_simple_code = f.my_simple_code) code_alias, 
+		    f.content, f.reg_dt, f.weather, f.low_temp, 
+		    f.high_temp, f.rainfall, f.humid, 
+		    f.yield, f.area
+            , ( select file_nm from files where file_no = f.file_no) file_nm
+		    , ( select code_nm from codes where code_no = f.b_type_code) b_type_code
+            , ( select code_nm from codes where code_no = f.w_step_code)  w_step_code
+            , ( select code_nm from codes where code_no = f.item_code) item_code            
+		from farmdiary f
+		where
+		 
+		 (select use_yn from files where file_no = f.file_no) = 'Y'
+		and (select use_yn from codes where code_no = f.b_type_code) = 'Y'
+		and (select use_yn from codes where code_no = f.w_step_code) = 'Y'
+		and (select use_yn from codes where code_no = f.item_code) = 'Y'
+        and (select use_yn from mysimplecode where my_simple_code = f.my_simple_code) = 'Y'        
+		and writer = 'brown'
+        and f.item_code = '112'
+		ORDER BY reg_dt desc;
 
+SELECT
+		f.f_diary_no, f.writer, f.my_simple_code, f.content,
+		f.reg_dt,
+		f.weather, f.low_temp,
+		f.high_temp, f.rainfall, f.humid,
+		f.yield, f.area
+        , (select file_nm from files where file_no = f.file_no) file_nm
+        , f.file_no
+		, (select code_nm from codes where code_no = f.b_type_code) b_type_code
+        , (select code_nm from codes where code_no = f.w_step_code) w_step_code
+		, (select code_nm from codes where code_no = f.item_code) item_code
+		FROM farmdiary f
+		WHERE f.f_diary_no = '0';
 
+SELECT 
+		    m.market_no
+			, m.writer
+			, m.head_code
+			, m.title
+			, m.item_code
+			, m.content
+			, m.price
+			, m.reg_dt
+			, m.thumbnail
+		    , m.mobile
+			, m.hit
+		    , (select code_nm from codes where code_no = m.item_code ) item_code_nm
+            , (select code_nm from codes where code_no = m.head_code ) head_code_nm
+            , (select file_nm from files where file_no = m.thumbnail ) thumbnail_file_nm 
+		FROM market m
+		WHERE 1=1
+        AND m.use_yn = 'Y'
+		AND (select use_yn from codes where code_no = m.item_code ) = 'Y'
+		AND (select use_yn from files where file_no = m.thumbnail ) = 'Y';
+        
+select *
+from market;
 
+SELECT 
+		    m.market_no
+			, m.writer
+			, m.head_code
+			, m.title
+			, m.item_code
+			, m.content
+			, m.price
+			, m.reg_dt
+			, m.thumbnail
+		    , m.mobile
+			, m.hit
+		    , (select code_nm from codes where code_no = m.item_code ) item_code_nm
+            , (select code_nm from codes where code_no = m.head_code ) head_code_nm
+			, (select file_nm from files where file_no = m.thumbnail ) thumbnail_file_nm
+			, (select file_no from files where file_no = m.thumbnail ) thumbnail_file_no
+		FROM market m
+		WHERE m.use_yn = 'Y'
+		AND (select use_yn from codes where code_no = m.item_code ) = 'Y'
+		AND writer = 'brown'
+		AND m.market_no = '1'
+		ORDER BY reg_dt desc;
 
+SELECT 
+		    m.file_record_no
+		    , m.market_no
+		    , m.file_no
+		    , f.file_nm
+		FROM marketfiles m
+		JOIN files f
+		ON m.file_no = f.file_no
+		WHERE market_no = 1
+		AND m.use_yn = 'Y'
+		AND f.use_yn = 'Y';
 
+SELECT 
+		    m.file_record_no
+		    , m.market_no
+		    , m.file_no
+		    , (select file_nm from files where file_no = m.file_no) file_nm
+		FROM marketfiles m
+		WHERE market_no = 1
+		AND m.use_yn = 'Y'
+		AND (select use_yn from files where file_no = m.file_no) = 'Y';
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	SELECT 
+		    m.file_record_no
+		    , m.market_no
+		    , m.file_no
+		    , (select file_nm from files where file_no = m.file_no) file_nm
+		FROM marketfiles m
+		WHERE (select file_no from files where file_no = m.file_no) = '3'
+		AND m.use_yn = 'Y'
+		AND (select use_yn from files where file_no = m.file_no) = 'Y';
 
 
 
