@@ -1809,13 +1809,56 @@ SELECT
 		AND m.use_yn = 'Y'
 		AND (select use_yn from files where file_no = m.file_no) = 'Y';
 
+select *
+from codes
+where code_nm = '유통';
 
+select *
+from codes
+where parent_code = '4';
 
+select f.f_diary_no, f.writer, f.my_simple_code
+            , (select code_alias from mysimplecode where my_simple_code = f.my_simple_code) code_alias, 
+		    f.content, f.reg_dt, f.weather, f.low_temp, 
+		    f.high_temp, f.rainfall, f.humid, 
+		    f.yield, f.area
+            , ( select file_nm from files where file_no = f.file_no) file_nm
+		    , ( select code_nm from codes where code_no = f.b_type_code) b_type_code
+            , ( select code_nm from codes where code_no = f.w_step_code)  w_step_code
+            , if ( select code_nm from codes where code_no = f.item_code) not null 
+                then ( select code_nm from codes where code_no = f.item_code)             
+              else '0'
+		from farmdiary f
+		and writer = 'brown'
+		ORDER BY reg_dt desc;
 
+select *
+from farmdiary
+order by reg_dt desc;
 
+select *
+from mysimplecode;
 
+select f.f_diary_no, f.writer, f.my_simple_code
+            , (select code_alias from mysimplecode where my_simple_code = f.my_simple_code) code_alias, 
+		    f.content, f.reg_dt, f.weather, f.low_temp, 
+		    f.high_temp, f.rainfall, f.humid, 
+		    f.yield, f.area
+            , ( select file_nm from files where file_no = f.file_no) file_nm
+		    , ( select code_nm from codes where code_no = f.b_type_code) b_type_code
+            , ( select code_nm from codes where code_no = f.w_step_code)  w_step_code
+            , ( select code_nm from codes where code_no = f.item_code) item_code      
+            , f.use_yn
+		from farmdiary f
+		where (select use_yn from files where file_no = f.file_no) = 'Y'
+		and (select use_yn from codes where code_no = f.b_type_code) = 'Y'
+		and (select use_yn from codes where code_no = f.w_step_code) = 'Y'
+		and (select use_yn from codes where code_no = f.item_code) = 'Y'
+        and (select use_yn from mysimplecode where my_simple_code = f.my_simple_code) = 'Y'    
+        and f.use_yn = 'Y'
+		and writer = 'james'
+		ORDER BY reg_dt desc;
 
-
-
-
+select *
+from market;
         
