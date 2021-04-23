@@ -104,14 +104,67 @@ update review set power = 1 where review_num = 64;
 commit;
 
 
-select *
-from
 
+select * from dba_profiles
+ 
+where resource_type='PASSWORD';
 
+ALTER PROFILE default LIMIT
+ 
+FAILED_LOGIN_ATTEMPTS 5
+ 
+PASSWORD_LIFE_TIME UNLIMITED
+ 
+PASSWORD_GRACE_TIME  10;
 
+commit;
 
+SELECT USERNAME,ACCOUNT_STATUS, EXPIRY_DATE FROM DBA_USERS;
 
+select * from dba_profiles where profile='DEFAULT' and resource_name='PASSWORD_LIFE_TIME';
 
+ ALTER USER larlarru IDENTIFIED BY humeccapassword;
+ 
+ALTER USER larlarru ACCOUNT UNLOCK;
+
+ALTER user larlarru identified by java;
+
+CREATE TABLE TB_CMM_DEPT
+( 
+   DEPT_CD     VARCHAR2(8) NOT NULL PRIMARY KEY,
+   PAR_DEPT_CD VARCHAR2(8),
+   DEPT_NM     VARCHAR2(50),
+   USE_YN      CHAR(1),
+   REG_DTM     DATE,
+   REG_USER    VARCHAR2(30),
+   MOD_DTM     DATE,
+   MOD_USER    VARCHAR2(30)
+);
+
+SELECT   DEPT_CD, 
+         PAR_DEPT_CD,
+         DEPT_NM,
+         USE_YN
+	
+   FROM TB_CMM_DEPT;
+
+SELECT *
+FROM TB_CMM_DEPT;
+   
+SELECT * 
+FROM TB_CMM_DEPT
+START WITH PAR_DEPT_CD IS NULL;   
+
+SELECT * 
+       FROM TB_CMM_DEPT
+       START WITH PAR_DEPT_CD = 'DEPT_002';
+
+SELECT * 
+FROM TB_CMM_DEPT
+START WITH PAR_DEPT_CD = (   SELECT DEPT_CD 
+                              FROM  TB_CMM_DEPT
+                             WHERE DEPT_NM  = '경영지원부'
+                            );
 
 
 
